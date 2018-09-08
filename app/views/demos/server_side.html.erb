@@ -1,0 +1,39 @@
+<!-- should clear:
+  - server side processing
+-->
+<div class="card" style="margin: 40px;">
+  <div class="card-section">
+    <table id="people_table" class="display">
+      <thead>
+          <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Birth Date</th>
+              <th>Salary</th>
+              <th>Country</th>
+              <th>Pin Code</th>
+          </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#people_table').DataTable({
+        ajax: {
+          type: "GET",
+          url: '/people',
+          dataType: 'json'
+        },
+        columns: [
+            { data: 'first_name'},
+            { data: 'last_name'},
+            { data: 'birth_date'},
+            { data: 'salary'},
+            { data: 'country'},
+            { data: 'pincode'},
+        ]
+    });
+} );
+</script>
