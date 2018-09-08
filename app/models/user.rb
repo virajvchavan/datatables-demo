@@ -8,7 +8,7 @@
 #  salary     :integer
 #  office     :string
 #  start_date :date
-#  extn       :string # position_order
+#  extn       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
