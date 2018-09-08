@@ -1,3 +1,6 @@
+<!-- should clear Two concepts:
+  - custom column rendering
+  - orthogonal data (display, sort, filter may require different formats of data) -->
 <div class="card" style="margin: 40px;">
   <div class="card-section">
     <table id="table_id" class="display">
@@ -6,15 +9,14 @@
               <th>Name</th>
               <th>Position</th>
               <th>Office</th>
-              <th>Extn.</th>
               <th>Start Date</th>
               <th>Salary</th>
           </tr>
       </thead>
     </table>
-
   </div>
 </div>
+
 <script type="text/javascript">
   $(document).ready( function () {
     $('#table_id').DataTable({
@@ -24,15 +26,24 @@
           dataType: 'json'
         },
         columns: [
-            { data: 'name' },
-            { data: 'position' },
+            { data: 'name',
+              render: function(data, type, row){
+                return "<a href='../users/" + row.id + "'>" + data + "</a>"
+              } },
+            { data: {
+              _: 'position.name',
+              sort: 'position.order' }
+            },
             { data: 'office' },
-            { data: 'extn' },
-            { data: 'start_date' },
+            { data: {
+              _: 'start_date.display',
+              sort: 'start_date.order'
+            } },
             { data: 'salary',
               render: function(data, type, row){
                 return '$' + data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-              } }
+              }
+            }
         ]
     });
 } );
