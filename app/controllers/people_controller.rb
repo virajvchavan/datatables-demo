@@ -6,6 +6,7 @@ class PeopleController < ApplicationController
   def index
     @people = Person.all
     filter_people
+    sort_people
     paginate_people
     respond_to do |format|
       format.html
@@ -85,8 +86,22 @@ class PeopleController < ApplicationController
       end
     end
 
+    def sort_people
+      if params[:order]['0']
+        direction = params[:order]['0'][:dir]
+        case params[:order]['0'][:column]
+        when '2'
+          @people = @people.order(birth_date: direction)
+        when '3'
+          @people = @people.order(salary: direction)
+        else
+          @people = @people.order(created_at: :asc)
+        end
+      end
+    end
+
     def paginate_people
       @some_people = []
-      @some_people = @people.order(created_at: :asc).limit(params[:limit] || params[:length] || 10).offset(params[:offset] || params[:start] || 0)
+      @some_people = @people.limit(params[:limit] || params[:length] || 10).offset(params[:offset] || params[:start] || 0)
     end
 end
