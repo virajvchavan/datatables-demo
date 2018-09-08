@@ -21,6 +21,8 @@
 <script type="text/javascript">
   $(document).ready( function () {
     $('#people_table').DataTable({
+        processing: true,
+        serverSide: true,
         ajax: {
           type: "GET",
           url: '/people',

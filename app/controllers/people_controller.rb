@@ -5,9 +5,11 @@ class PeopleController < ApplicationController
   # GET /people.json
   def index
     @people = Person.all
+    filter_people
+    paginate_people
     respond_to do |format|
       format.html
-      format.json { render json: { data: @people } }
+      format.json { render json: { data: @some_people, draw: params[:draw], recordsTotal: @people.count, recordsFiltered: @people.count } }
     end
   end
 
@@ -74,5 +76,17 @@ class PeopleController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
       params.require(:person).permit(:first_name, :last_name, :salary, :country, :birth_date, :pincode)
+    end
+
+    def filter_people
+      if params[:search][:value].present?
+        query = params[:search][:value]
+        @people = @people.where("first_name LIKE ? OR last_name LIKE ? OR salary LIKE ? OR pincode LIKE ? OR birth_date LIKE ? OR country LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%","%#{query}%")
+      end
+    end
+
+    def paginate_people
+      @some_people = []
+      @some_people = @people.order(created_at: :asc).limit(params[:limit] || params[:length] || 10).offset(params[:offset] || params[:start] || 0)
     end
 end
