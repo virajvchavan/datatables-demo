@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id           :integer          not null, primary key
+#  dish_name    :string
+#  quantity     :string
+#  price        :integer
+#  location     :string
+#  order_time   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  custome_name :string
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dish_name: MyString
+  quantity: MyString
+  price: 1
+  location: MyString
+  order_time: 2018-09-09 14:42:46
+
+two:
+  dish_name: MyString
+  quantity: MyString
+  price: 1
+  location: MyString
+  order_time: 2018-09-09 14:42:46

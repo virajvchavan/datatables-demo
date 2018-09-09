@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   resources :people
   get 'demos/index'
   get 'demos/basic'
