@@ -37,7 +37,7 @@
             { data: 'created_at', orderable: false }
         ],
         drawCallback: function(settings) {
-        // assuming that new orders are created at rate slower than 1 order/5 sec
+        // assuming that new orders are created at rate slower than 1 order/3 sec
           if(typeof(top_row) != 'undefined')
           {
             if(top_row < this.api().row(0).data().id)
@@ -53,6 +53,6 @@
     });
     setInterval(function() {
       $('#people_table').DataTable().draw();
-    }, 5000);
+    }, 3000);
 } );
 </script>
