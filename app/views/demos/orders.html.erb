@@ -1,6 +1,4 @@
-<!-- should clear:
-  - server side processing
--->
+
 <div class="card" style="margin: 40px;">
   <div class="card-section">
     <table id="people_table" class="display">
@@ -20,6 +18,7 @@
 
 <script type="text/javascript">
   $(document).ready( function () {
+    $.notify.defaults({ autoHide: false, clickToHide: true })
     $('#people_table').DataTable({
         processing: true,
         serverSide: true,
@@ -43,7 +42,10 @@
           {
             if(top_row < this.api().row(0).data().id)
             {
-              console.log('Notification: ', this.api().row(0).data());
+              // create the pop up notification
+              var row = this.api().row(0).data();
+              console.log('Notification: ', row);
+              $.notify('New order for ' + row.dish_name + ' from ' + row.location + '!', 'success', { autoHide: false });
             }
           }
           window.top_row = this.api().row(0).data().id;
