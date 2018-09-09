@@ -5,6 +5,14 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.all
+    respond_to do |format|
+      format.html
+      format.json do
+        filter_orders
+        paginate_orders
+        render json: { data: @some_orders, draw: params[:draw], recordsTotal: @orders.count, recordsFiltered: @orders.count }
+     end
+    end
   end
 
   # GET /orders/1
@@ -70,5 +78,17 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:dish_name, :quantity, :price, :location, :order_time)
+    end
+
+    def filter_orders
+      if params[:search][:value].present?
+        query = params[:search][:value]
+        @orders = @orders.where("dish_name LIKE ? OR custome_name LIKE ? OR location LIKE ? OR quantity LIKE ? OR price LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
+      end
+    end
+
+    def paginate_orders
+      @some_orders = []
+      @some_orders = @orders.order(created_at: :desc).limit(params[:limit] || params[:length] || 10).offset(params[:offset] || params[:start] || 0)
     end
 end

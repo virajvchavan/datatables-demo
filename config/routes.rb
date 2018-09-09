@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'demos/customize'
   get 'demos/server_side'
   get 'demos/select_filters'
+  get 'demos/orders'
 
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.

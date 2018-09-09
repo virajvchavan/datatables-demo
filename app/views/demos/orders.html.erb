@@ -1,0 +1,44 @@
+<!-- should clear:
+  - server side processing
+-->
+<div class="card" style="margin: 40px;">
+  <div class="card-section">
+    <table id="people_table" class="display">
+      <thead>
+          <tr>
+              <th>Dish</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Customer</th>
+              <th>Location</th>
+              <th>Order Time</th>
+          </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#people_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+          type: "GET",
+          url: '/orders',
+          dataType: 'json'
+        },
+        columns: [
+            { data: 'dish_name', orderable: false },
+            { data: 'quantity', orderable: false },
+            { data: 'price', orderable: false },
+            { data: 'custome_name', orderable: false },
+            { data: 'location', orderable: false },
+            { data: 'created_at', orderable: false }
+        ]
+    });
+    setInterval(function() {
+      $('#people_table').DataTable().draw();
+    }, 5000);
+} );
+</script>

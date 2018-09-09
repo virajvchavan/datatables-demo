@@ -18,7 +18,7 @@ class Order < ActiveRecord::Base
 	def self.add_fake_orders
 		while true do
 			sleep(5)
-			Order.create(dish_name: Faker::Food.dish, quantity: rand(4), price: rand(500), location: Faker::HarryPotter.location, custome_name: Faker::HarryPotter.character)
+			Order.create(dish_name: Faker::Food.dish, quantity: rand(4) + 1, price: rand(500) + 10, location: Faker::HarryPotter.location, custome_name: Faker::HarryPotter.character)
 		end
 	end
 end
