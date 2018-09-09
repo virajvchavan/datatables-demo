@@ -1,10 +1,7 @@
-<!-- should clear:
-  - server side processing
--->
 <div class="card" style="margin: 40px;">
-  <div class="grid-container">
     <div class="input-group">
-      <div class="cell medium-4">
+      <a id="delete_button" href="#" class="button alert float-left input-group-button" style="margin-right: 40px">Delete Selected Row</a>
+      <div class="cell medium-4" style="max-width: 30%;">
         <label class="input-group-label">Region: &nbsp;
         <select id='select_country' class="input-group-field">
           <option value="all" selected="true">All</option>
@@ -16,7 +13,7 @@
         </select>
         </label>
       </div>
-      <div class="cell medium-4">
+      <div class="cell medium-4" style="max-width: 30%;">
         <label class="input-group-label">Salary: &nbsp;
           <select id="select_salary" class="input-group-field">
             <option value="all" selected="true">All</option>
@@ -28,7 +25,6 @@
           </select>
         </label>
       </div>
-    </div>
   </div>
   <div class="card-section">
     <table id="people_table" class="display">
@@ -48,7 +44,7 @@
 
 <script type="text/javascript">
   $(document).ready( function () {
-    datatable = $('#people_table').DataTable({
+    table = $('#people_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
@@ -74,6 +70,25 @@
     $('#select_salary').on('change', function(){
       $('#people_table').DataTable().columns(3).search($('#select_salary').val()).draw();
     });
+
+    $('#people_table tbody').on( 'click', 'tr', function () {
+      if ( $(this).hasClass('selected') ) {
+          $(this).removeClass('selected');
+      }
+      else {
+          table.$('tr.selected').removeClass('selected');
+          $(this).addClass('selected');
+      }
+    });
+ 
+    $('#delete_button').click( function () {
+        $.ajax({
+          url: '/people/' + table.row('.selected').data().id + '.json',
+          type: 'DELETE',
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+        });
+        table.row('.selected').remove().draw( false );
+    } );
 
 } );
 </script>

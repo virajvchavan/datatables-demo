@@ -19,8 +19,7 @@
 <script type="text/javascript">
   $(document).ready( function () {
     $.notify.defaults({ autoHide: false, clickToHide: true })
-    $('#people_table').DataTable({
-        processing: true,
+    table = $('#people_table').DataTable({
         serverSide: true,
         pageLength: 40,
         ajax: {
@@ -51,8 +50,9 @@
           window.top_row = this.api().row(0).data().id;
         }
     });
+
     setInterval(function() {
       $('#people_table').DataTable().draw();
     }, 3000);
-} );
+  });
 </script>

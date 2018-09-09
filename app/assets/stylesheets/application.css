@@ -25,3 +25,7 @@ table.dataTable td{
 .card-section{
 	background-color: #c3dbffbf;
 }
+
+tr.selected{
+	background-color: #ff7575 !important;
+}
