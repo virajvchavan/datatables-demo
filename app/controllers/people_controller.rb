@@ -5,12 +5,14 @@ class PeopleController < ApplicationController
   # GET /people.json
   def index
     @people = Person.all
-    filter_people
-    sort_people
-    paginate_people
     respond_to do |format|
       format.html
-      format.json { render json: { data: @some_people, draw: params[:draw], recordsTotal: @people.count, recordsFiltered: @people.count } }
+      format.json do
+        filter_people
+        sort_people
+        paginate_people
+        render json: { data: @some_people, draw: params[:draw], recordsTotal: @people.count, recordsFiltered: @people.count }
+     end
     end
   end
 
@@ -83,6 +85,17 @@ class PeopleController < ApplicationController
       if params[:search][:value].present?
         query = params[:search][:value]
         @people = @people.where("first_name LIKE ? OR last_name LIKE ? OR salary LIKE ? OR pincode LIKE ? OR birth_date LIKE ? OR country LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%","%#{query}%")
+      end
+
+      # filter by salary
+      if params[:columns]['3'][:search][:value].present? && params[:columns]['3'][:search][:value] != 'all'
+        query = params[:columns]['3'][:search][:value].split(' - ').map(&:to_i)
+        @people = @people.where('salary > ? AND salary < ?', query.first, query.last)
+      end
+
+      # filter by region
+      if params[:columns]['4'][:search][:value].present? && params[:columns]['4'][:search][:value] != 'all'
+        @people = @people.where(region: params[:columns]['4'][:search][:value])
       end
     end
 

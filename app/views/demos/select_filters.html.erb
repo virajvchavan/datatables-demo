@@ -8,11 +8,11 @@
         <label class="input-group-label">Region: &nbsp;
         <select id='select_country' class="input-group-field">
           <option value="all" selected="true">All</option>
-          <option value='asia'>Asia</option>
-          <option value='north_america'>North America</option>
-          <option value='south_america'>South America</option>
-          <option value='europe'>Europe</option>
-          <option value='australia'>Australia</option>
+          <option value='Asia'>Asia</option>
+          <option value='North America'>North America</option>
+          <option value='South America'>South America</option>
+          <option value='Europe'>Europe</option>
+          <option value='Australia'>Australia</option>
         </select>
         </label>
       </div>
@@ -20,11 +20,11 @@
         <label class="input-group-label">Salary: &nbsp;
           <select id="select_salary" class="input-group-field">
             <option value="all" selected="true">All</option>
-            <option value="100000 - 120000">100000 - 110000</option>
-            <option value="120000 - 140000">120000 - 140000</option>
-            <option value="140000 - 160000">140000 - 160000</option>
-            <option value="160000 - 180000">160000 - 180000</option>
-            <option value="180000 - 200000">180000 - 200000</option>
+            <option value="100000 - 200000">100000 - 110000</option>
+            <option value="200000 - 400000">120000 - 140000</option>
+            <option value="400000 - 600000">140000 - 160000</option>
+            <option value="600000 - 800000">160000 - 180000</option>
+            <option value="800000 - 1000000">180000 - 200000</option>
           </select>
         </label>
       </div>
@@ -72,7 +72,7 @@
     });
 
     $('#select_salary').on('change', function(){
-      $('#people_table').DataTable().columns(3).search($('#select_country').val()).draw();
+      $('#people_table').DataTable().columns(3).search($('#select_salary').val()).draw();
     });
 
 } );
