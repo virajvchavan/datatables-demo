@@ -1,0 +1,65 @@
+<!-- should clear:
+  - server side processing
+-->
+<div class="card" style="margin: 40px;">
+  <div class="grid-container">
+    <div class="input-group">
+      <div class="cell medium-4">
+        <label class="input-group-label">Country: &nbsp;
+        <select class="input-group-field">
+          <option value="husker">India</option>
+          <option value="starbuck">Pakistan</option>
+          <option value="hotdog">United States</option>
+          <option value="apollo">Apollo</option>
+        </select>
+        </label>
+      </div>
+      <div class="cell medium-4">
+        <label class="input-group-label">Salary: &nbsp;
+          <select class="input-group-field">
+            <option value="husker">India</option>
+            <option value="starbuck">Pakistan</option>
+            <option value="hotdog">United States</option>
+            <option value="apollo">Apollo</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="card-section">
+    <table id="people_table" class="display">
+      <thead>
+          <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Birth Date</th>
+              <th>Salary</th>
+              <th>Country</th>
+              <th>Pin Code</th>
+          </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#people_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+          type: "GET",
+          url: '/people',
+          dataType: 'json'
+        },
+        columns: [
+            { data: 'first_name', orderable: false },
+            { data: 'last_name', orderable: false },
+            { data: 'birth_date' },
+            { data: 'salary' },
+            { data: 'country', orderable: false },
+            { data: 'pincode', orderable: false }
+        ]
+    });
+} );
+</script>
