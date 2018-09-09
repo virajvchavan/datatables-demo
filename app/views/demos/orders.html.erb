@@ -23,6 +23,7 @@
     $('#people_table').DataTable({
         processing: true,
         serverSide: true,
+        pageLength: 40,
         ajax: {
           type: "GET",
           url: '/orders',
@@ -35,7 +36,18 @@
             { data: 'custome_name', orderable: false },
             { data: 'location', orderable: false },
             { data: 'created_at', orderable: false }
-        ]
+        ],
+        drawCallback: function(settings) {
+        // assuming that new orders are created at rate slower than 1 order/5 sec
+          if(typeof(top_row) != 'undefined')
+          {
+            if(top_row < this.api().row(0).data().id)
+            {
+              console.log('Notification: ', this.api().row(0).data());
+            }
+          }
+          window.top_row = this.api().row(0).data().id;
+        }
     });
     setInterval(function() {
       $('#people_table').DataTable().draw();
