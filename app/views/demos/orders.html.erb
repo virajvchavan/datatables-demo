@@ -64,5 +64,17 @@
     setInterval(function() {
       $('#orders_table').DataTable().draw();
     }, 3000);
+
+    $('img').hide();
+    $('#html_reveal').click(function() {
+      $('img').hide();
+      $('#html_img').show();
+    });
+
+    $('#js_reveal').click(function() {
+      $('img').hide();
+      $('#js_img').show();
+    });
+  
   });
 </script>
