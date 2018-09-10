@@ -1,7 +1,10 @@
 
 <div class="card" style="margin: 40px;">
+  <div class="card-header">
+    <h4>Real-time Food Ordering with Notifications</h4>
+  </div>
   <div class="card-section">
-    <table id="people_table" class="display">
+    <table id="orders_table" class="display">
       <thead>
           <tr>
               <th>Dish</th>
@@ -19,7 +22,7 @@
 <script type="text/javascript">
   $(document).ready( function () {
     $.notify.defaults({ autoHide: false, clickToHide: true })
-    table = $('#people_table').DataTable({
+    table = $('#orders_table').DataTable({
         serverSide: true,
         pageLength: 40,
         ajax: {
@@ -52,7 +55,7 @@
     });
 
     setInterval(function() {
-      $('#people_table').DataTable().draw();
+      $('#orders_table').DataTable().draw();
     }, 3000);
   });
 </script>
