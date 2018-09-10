@@ -14,9 +14,16 @@
           </tr>
       </thead>
     </table>
-
   </div>
+  <div class="card-footer">
+    <button class="button" id="html_reveal">HTML</button>
+    <button class="button" id="js_reveal">JS</button>
 </div>
+</div>
+
+<img id="html_img" src="/ajax/html.png">
+<img id="js_img" src="/ajax/js.png">
+
 <script type="text/javascript">
   $(document).ready( function () {
     $('#table_id').DataTable({
@@ -33,5 +40,16 @@
             { data: 'salary' }
         ]
     });
+
+    $('img').hide();
+    $('#html_reveal').click(function() {
+      $('#html_img').show();
+      $('#js_img').hide();
+    });
+
+    $('#js_reveal').click(function() {
+      $('#html_img').hide();
+      $('#js_img').show();
+    })
 } );
 </script>
