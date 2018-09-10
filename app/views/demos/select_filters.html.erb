@@ -30,7 +30,7 @@
     <h4>Customized Filtering of columns on server-side</h4>
   </div>
   <div class="card-section">
-    <table id="people_table" class="display">
+    <table id="peoples_table" class="display">
       <thead>
           <tr>
               <th>First Name</th>
@@ -47,16 +47,17 @@
     <button class="button" id="html_reveal">HTML</button>
     <button class="button" id="js_reveal">JS</button>
     <button class="button" id="to_server_reveal">Params to server</button>
+    <a class="button" href="https://datatables.net/reference/api/" style="color: white;" target="_blank">API Reference</a>
   </div>
 </div>
 
 <img id="html_img" src="/select_filters/html.png">
 <img id="js_img" src="/select_filters/js.png">
-<img id="to_server_img" src="/server_side/to_server.png">
+<img id="to_server_img" src="/select_filters/to_server.png">
 
 <script type="text/javascript">
   $(document).ready( function () {
-    table = $('#people_table').DataTable({
+    table = $('#peoples_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
@@ -76,14 +77,14 @@
 
 
     $('#select_country').on('change', function(){
-      $('#people_table').DataTable().columns(4).search($('#select_country').val()).draw();
+      $('#peoples_table').DataTable().columns(4).search($('#select_country').val()).draw();
     });
 
     $('#select_salary').on('change', function(){
-      $('#people_table').DataTable().columns(3).search($('#select_salary').val()).draw();
+      $('#peoples_table').DataTable().columns(3).search($('#select_salary').val()).draw();
     });
 
-    $('#people_table tbody').on( 'click', 'tr', function () {
+    $('#peoples_table tbody').on( 'click', 'tr', function () {
       if ( $(this).hasClass('selected') ) {
           $(this).removeClass('selected');
       }

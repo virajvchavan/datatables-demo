@@ -35,5 +35,6 @@ tr.selected{
 }
 
 img{
-	margin: auto;
+	display: block;
+	margin: auto !important;
 }

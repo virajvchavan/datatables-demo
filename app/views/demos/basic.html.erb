@@ -1,6 +1,6 @@
 <div class="card" style="margin: 40px;">
   <div class="card-header">
-    <h4>Basic Example</h4>
+    <h4>Basic Example <button class="button" id="enable_datatable">Enable Datatable</button></h4>
   </div>
   <div class="card-section">
   <table id="table_id" class="display">
@@ -101,12 +101,15 @@
 </div>
 </div>
 
-<img id="html_img" src="/basic/html.png">
+<img id="html_img" src="/basic/html.png" style="max-width: 60%;">
 <img id="js_img" src="/basic/js.png">
 
 <script type="text/javascript">
   $(document).ready( function () {
-    $('#table_id').DataTable();
+    $('#enable_datatable').click(function(){
+      $('#table_id').DataTable();
+      $(this).hide();
+    });
 
     $('img').hide();
     $('#html_reveal').click(function() {
